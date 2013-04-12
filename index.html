@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="http://radio.italianmood.net/mobile/my.css" />
+  	<link href="http://www.swinaallen.com/jplayer2.1.0/skins/black.grey/jplayer.black.grey.css" rel="stylesheet" type="text/css" /> 
+		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCY_wFl0zI5Q35TVJuEtASBgFBMSMp9z7I&sensor=false"></script>
+		<script src="audiojs/audiojs/audio.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+        <script src="http://radio.italianmood.net/mobile/my4.js">
+        </script>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<!--- <script type="text/javascript" src="http://radio.italianmood.net/mobile/jquery.jplayer.min.js"></script> --->
+        <script>
+		
+		//initial settings homepage
+		$(document).ready(function(){
+			 
+			$('.btn-mood').click(function(){
+				mood = $(this).attr('name');
+				moodtags = [];
+				tag = 0;
+				tracks = [];
+				songs = [];
+				artists = [];
+				covers = [];
+				current = 0;
+
+				$('#Content_1').hide();
+				$('#loading').show();
+				for ( var i = 0; i < 4 ; i++ ){
+					moodtags[i] = tags[i + ( 4*mood )];
+				}
+				if ( mood == 0 ){
+					$('#moodchart').html ( "Blues Mood" );
+				}
+				if ( mood == 1 ){
+					$('#moodchart').html ( "Street Mood" );
+				}
+				if ( mood == 2 ){
+					$('#moodchart').html ( "Psycho Mood" );
+				}
+				if ( mood == 3 ){
+					$('#moodchart').html ( "Glam Mood" );
+				}
+				document.location = "#page1";
+				
+				getTop('listen');
+			});
+
+			//getTop();
+		});
+		
+		
+		function infoHelp(){
+			$('#developer-text').dialog( "open" );
+		}
+            try {
+				
+    			$(function() {
+					
+    			});
+
+  			} catch (error) {
+			    console.error("Your javascript has an error: " + error);
+		  }
+        </script>
+    </head>
+<body>
+
+	<!-- Home -->
+	<div data-role="page" id="page0" style="background:#000">
+    	<div id="header" data-theme="a" data-role="header" data-position="fixed" class="header">
+        	<div style="text-align:center">
+			<h2>
+            Jamendo Mood (BETA)
+            </h2>
+		  	 </div> 
+		</div>
+			
+        <div data-role="content" style="">
+	        <div id="Content_0" data-theme="a" data-content-theme="a" class="Content_0" style="display:;background:#000;width:100%;height:100%;margin:0px auto;text-align:center">
+				<div style="width:85%;height:100%;text-align:center;margin:0px auto">
+					<div style="display:inline-block;text-align:center">
+						<div align="center">
+						<img src="http://www.italianmood.net/img/bluesmood.png" style="width:150px;float:left;margin-right:5px;cursor:pointer" alt="Select your mood" class="btn-mood" name="0">					
+						<img src="http://www.italianmood.net/img/streetmood.gif" style="width:150px;float:left;margin-right:5px;cursor:pointer" alt="Select your mood" class="btn-mood" name="1">
+						<img src="http://www.italianmood.net/img/psychomood.gif" style="width:150px;float:left;margin-right:5px;cursor:pointer" alt="Select your mood" class="btn-mood" name="2">
+						<img src="http://www.italianmood.net/img/glammood.gif" style="width:150px;float:left;margin-right:5px;cursor:pointer" alt="Select your mood" class="btn-mood" name="3">
+						<br><br>
+						<h3>What is your mood ?</h3>
+						<a data-role="button" href="info.html" data-rel="dialog" data-icon="info" data-iconpos="notext">Info</a>
+						</div>
+					
+						<div id="searchFor">
+							<h1>10 Most Popular Artist by Country</h1>
+							<h3>Country</h3> 
+							<select name="country" id="country">
+								<option value="">...</option>
+								<option value="ARG">Argentina</option>
+								<option value="BRA">Brasil</option>
+								<option value="DEU">Germany</option>
+								<option value="FRA">France</option>
+								<option value="GBR">United Kingdom</option>
+								<option value="ITA">Italy</option>
+								<option value="SPA">Spain</option>
+								<option value="USA">USA</option>
+							</select>
+							<h3>City</h3>
+							<input type="text" name="city" id="city"><a data-role="button" href="#page1" onclick="javascript:geoSearch()">Search</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		
+	<!-- Home -->
+    <div data-role="page" id="page1" style="background:#333">
+    	<div id="header" data-theme="a" data-role="header" data-position="fixed" class="header">
+			<div style="text-align:center;">
+				<div data-role="controlgroup" data-type="horizontal">
+					<a data-role="button" href="javascript:;">
+					<span id='moodchart'>Blues Mood</span> Jamendo <span id='filtro'>Top 10 Listened</span> (BETA)
+					</a>
+					<a data-role="button" href="#page1" onclick="javascript:resetFilter('listen')">Top Listen</a>
+					<a data-role="button" href="#page1" onclick="javascript:resetFilter('popular')">Top Popular</a>
+					<a data-role="button" href="#page1" onclick="javascript:resetFilter('download')">Top Download</a>
+					<a data-role="button" href="#page1" onclick="javascript:resetFilter('new')">New Entry</a>
+					<a data-role="button" href="#page0" data-icon="home" data-iconpos="notext">Home</a>
+				</div> 
+			</div>
+		</div>
+			
+		<div data-role="content" style="background:#333">
+			<div id="loading" style="width:100%;height:100%;text-align:center;margin:0px auto;font-size:14px">
+				<img id="loading" src="http://www.boohooks.com/img/loading_2.gif" style="width:30px"><br>
+				Loading charts ... please wait!<br>
+				<span id="loaded"></span><br><br>
+				Using Jamendo API 3.0
+			</div>
+                	
+			<div id="Content_1" data-role="collapsible-set" data-theme="a" data-content-theme="a" class="Content_1" style="display:none;background:#222">
+				<div data-role="collapsible" data-collapsed="false">
+					<h3><span id="chart_0"></span></h3>
+					<ul data-role="listview" data-inset="true" id="top_0" style="background:#000"></ul>
+    			</div>
+                <div data-role="collapsible">
+                	<h3><span id="chart_1"></span></h3>
+					<ul data-role="listview" data-inset="true" id="top_1" style="background:#000"></ul>
+				</div>
+                <div data-role="collapsible">
+					<h3><span id="chart_2"></span></h3>
+					<ul data-role="listview" data-inset="true" id="top_2" style="background:#000"></ul>
+				</div>
+                <div data-role="collapsible">
+					<h3><span id="chart_3"></span></h3>
+					<ul data-role="listview" data-inset="true" id="top_3" style="background:#000"></ul>
+				</div>
+			</div>
+			
+			<div id="search-result" style="display:none">
+			
+			</div>
+			
+            <div id="footer" data-theme="a" data-role="footer" data-position="fixed" class="footer">
+				<div style="width:100%;text-align:center">
+					<div style="display:inline-block;margin-top:5px;">
+						<!--- audio player --->
+						<div style="float:left"><audio preload></audio></div> 
+						<div style="float:left;">
+							<div id="currentCover" style="float:left;margin-left:10px">
+								<img id="cover" style="width:45px;height:45px">
+							</div>
+							<div id="currentSong" style="float:left;margin-left:10px;margin-top:5px;z-index:99999999999;font-size:11px"></div>
+						</div>
+					</div>
+            	</div>
+	        </div>
+	
+	
+	
+			<div style="position:fixed;width:320px;height:580px;right:0px;bottom:0px;display:none;border-radius:10px;padding:5px;background:#333" id="myMap">
+				<div id="googleMap" style="width:300px;height:300px;border-radius:10px"></div>
+				<div id="noMap" style="display:none">Location not available for this artist</div>
+			</div>
+			
+			<div style="position:fixed;width:620px;height:620px;right:0px;top:0px;display:none;border-radius:10px;padding:5px;background:#333" id="myMap2">
+				<div id="googleMapArtist" style="width:600px;height:600px;border-radius:10px"></div>
+			</div>
+			
+        </div>	
+	</div>
+</body>
+
+</html>
